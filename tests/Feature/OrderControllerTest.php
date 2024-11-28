@@ -10,7 +10,6 @@ use Tests\TestCase;
 class OrderControllerTest extends TestCase
 {
     use RefreshDatabase;
-
     public function test_user_can_create_order()
     {
         $user = User::factory()->create();
