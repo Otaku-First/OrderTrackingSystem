@@ -1,0 +1,365 @@
+openapi: 3.0.3
+info:
+  title: OrderTrackingSystem
+  description: ''
+  version: 1.0.0
+servers:
+  -
+    url: 'http://127.0.0.1:9081'
+paths:
+  /api/auth/register:
+    post:
+      summary: ''
+      operationId: postApiAuthRegister
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: validation.max.
+                  example: vzshsint
+                  nullable: false
+                email:
+                  type: string
+                  description: 'validation.email validation.max.'
+                  example: dorothy34@example.net
+                  nullable: false
+                password:
+                  type: string
+                  description: validation.min.
+                  example: "74dRD?xS2,Qvk'"
+                  nullable: false
+              required:
+                - name
+                - email
+                - password
+      security: []
+  /api/auth/login:
+    post:
+      summary: ''
+      operationId: postApiAuthLogin
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  description: 'validation.email The <code>email</code> of an existing record in the users table. validation.max.'
+                  example: labadie.rey@example.com
+                  nullable: false
+                password:
+                  type: string
+                  description: validation.min.
+                  example: '>D9,d[-EPf@ik'
+                  nullable: false
+              required:
+                - email
+                - password
+      security: []
+  /api/auth/logout:
+    post:
+      summary: ''
+      operationId: postApiAuthLogout
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+  /api/auth/refresh:
+    post:
+      summary: ''
+      operationId: postApiAuthRefresh
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+  /api/auth/me:
+    get:
+      summary: ''
+      operationId: getApiAuthMe
+      description: ''
+      parameters: []
+      responses:
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Неавторизований доступ. Будь ласка, увійдіть у систему.'
+                properties:
+                  message:
+                    type: string
+                    example: 'Неавторизований доступ. Будь ласка, увійдіть у систему.'
+      tags:
+        - Endpoints
+      security: []
+  /api/orders:
+    get:
+      summary: ''
+      operationId: getApiOrders
+      description: ''
+      parameters: []
+      responses:
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Неавторизований доступ. Будь ласка, увійдіть у систему.'
+                properties:
+                  message:
+                    type: string
+                    example: 'Неавторизований доступ. Будь ласка, увійдіть у систему.'
+      tags:
+        - Endpoints
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                page:
+                  type: integer
+                  description: ''
+                  example: 12
+                  nullable: true
+                sort_field:
+                  type: string
+                  description: ''
+                  example: updated_at
+                  nullable: false
+                  enum:
+                    - created_at
+                    - updated_at
+                sort_order:
+                  type: string
+                  description: ''
+                  example: asc
+                  nullable: false
+                  enum:
+                    - asc
+                    - desc
+                filters:
+                  type: object
+                  description: ''
+                  example: []
+                  nullable: false
+                  properties:
+                    product_name:
+                      type: string
+                      description: validation.max.
+                      example: bjmureuwnxun
+                      nullable: true
+                    status:
+                      type: string
+                      description: ''
+                      example: NEW
+                      nullable: false
+                      enum:
+                        - NEW
+                        - IN_PROCESSING
+                        - SENT
+                        - DELIVERED
+                    amount_min:
+                      type: number
+                      description: ''
+                      example: 337794.905
+                      nullable: false
+                    amount_max:
+                      type: number
+                      description: ''
+                      example: 2286.15201059
+                      nullable: false
+      security: []
+    post:
+      summary: ''
+      operationId: postApiOrders
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                product_name:
+                  type: string
+                  description: validation.max.
+                  example: anbbyztxfsnmadwrku
+                  nullable: false
+                amount:
+                  type: number
+                  description: ''
+                  example: 21859.9208
+                  nullable: false
+              required:
+                - product_name
+                - amount
+      security: []
+  '/api/orders/changeStatus/{id}':
+    put:
+      summary: ''
+      operationId: putApiOrdersChangeStatusId
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                status:
+                  type: string
+                  description: ''
+                  example: SENT
+                  nullable: false
+                  enum:
+                    - NEW
+                    - IN_PROCESSING
+                    - SENT
+                    - DELIVERED
+      security: []
+    parameters:
+      -
+        in: path
+        name: id
+        description: 'The ID of the changeStatus.'
+        example: id
+        required: true
+        schema:
+          type: string
+  /api/orders/export-csv:
+    get:
+      summary: ''
+      operationId: getApiOrdersExportCsv
+      description: ''
+      parameters: []
+      responses:
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Неавторизований доступ. Будь ласка, увійдіть у систему.'
+                properties:
+                  message:
+                    type: string
+                    example: 'Неавторизований доступ. Будь ласка, увійдіть у систему.'
+      tags:
+        - Endpoints
+      security: []
+  '/api/orders/{id}':
+    get:
+      summary: ''
+      operationId: getApiOrdersId
+      description: ''
+      parameters: []
+      responses:
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Неавторизований доступ. Будь ласка, увійдіть у систему.'
+                properties:
+                  message:
+                    type: string
+                    example: 'Неавторизований доступ. Будь ласка, увійдіть у систему.'
+      tags:
+        - Endpoints
+      security: []
+    put:
+      summary: ''
+      operationId: putApiOrdersId
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                product_name:
+                  type: string
+                  description: validation.max.
+                  example: zsmroyun
+                  nullable: false
+                amount:
+                  type: number
+                  description: ''
+                  example: 2257948.1324136
+                  nullable: false
+                status:
+                  type: string
+                  description: ''
+                  example: DELIVERED
+                  nullable: false
+                  enum:
+                    - NEW
+                    - IN_PROCESSING
+                    - SENT
+                    - DELIVERED
+      security: []
+    delete:
+      summary: ''
+      operationId: deleteApiOrdersId
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+    parameters:
+      -
+        in: path
+        name: id
+        description: 'The ID of the order.'
+        example: iusto
+        required: true
+        schema:
+          type: string
+tags:
+  -
+    name: Endpoints
+    description: ''
