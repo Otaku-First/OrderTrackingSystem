@@ -12,7 +12,7 @@ services:
 
   php:
     build:
-      context: /docker/dockerfiles
+      context: ./docker/dockerfiles
       dockerfile: php.Dockerfile
     volumes:
       - ../OrderTrackingSystem:/var/www/laravel
@@ -52,14 +52,14 @@ services:
 
   composer:
     build:
-      context: /docker/dockerfiles
+      context: ./docker/dockerfiles
       dockerfile: composer.Dockerfile
     volumes:
       - ../OrderTrackingSystem:/var/www/laravel
 
   artisan:
     build:
-      context: /docker/dockerfiles
+      context: ./docker/dockerfiles
       dockerfile: php.Dockerfile
     volumes:
       - ../OrderTrackingSystem:/var/www/laravel
@@ -75,7 +75,7 @@ services:
     command: [ "migrate" ]
   horizon:
       build:
-        context: /docker/dockerfiles
+        context: ./docker/dockerfiles
         dockerfile: php.Dockerfile
       volumes:
         - ../OrderTrackingSystem:/var/www/laravel
